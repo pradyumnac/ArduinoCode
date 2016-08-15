@@ -66,7 +66,7 @@ void setup() {
 
 void loop() {
   // make a string for assembling the data to log:
-  String dataString = "hey yo!";
+  String dataString = "Hille Varshey!";
 
   // open the file. note that only one file can be open at a time,
   // so you have to close this one before opening another.
