@@ -18,7 +18,13 @@
 // example for more information on possible values.
 Adafruit_NeoPixel pixels = Adafruit_NeoPixel(NUMPIXELS, PIN, NEO_GRB + NEO_KHZ800);
 
-int delayval = 2000; // delay for half a second
+int delayval;
+int brightness = 128; // delay for half a second
+int minRGB;
+int maxRGB;
+
+
+
 
 void setup() {
   // This is for Trinket 5V 16MHz, you can remove these three lines if you are not using a Trinket
@@ -29,6 +35,13 @@ void setup() {
 
   pixels.begin(); // This initializes the NeoPixel library.
   Serial.begin(9600);
+  randomSeed(analogRead(A0));
+  pixels.setBrightness(brightness);
+  //minRGB = random(0,32);
+  minRGB = 0;
+  maxRGB = random(33,128);
+  maxRGB = 255;
+  delayval = random(40,255);
 }
 
 void loop() {
@@ -36,9 +49,15 @@ void loop() {
   // For a set of NeoPixels the first NeoPixel is 0, second is 1, all the way up to the count of pixels minus one.
 
   for(int i=0;i<NUMPIXELS;i++){
-
+  
     // pixels.Color takes RGB values, from 0,0,0 up to 255,255,255
-    pixels.setPixelColor(i, pixels.Color(25*((i+1)%NUMPIXELS),25*(i%NUMPIXELS),25*((i+3)%NUMPIXELS))); // Moderately bright green color.
+    //pixels.setPixelColor(i, pixels.Color(25*((i+1)%NUMPIXELS),25*(i%NUMPIXELS),25*((i+3)%NUMPIXELS))); // Moderately bright green color.
+    
+    int randNumber1 = random(minRGB,maxRGB);
+    int randNumber2 = random(minRGB,maxRGB);
+    int randNumber3 = random(minRGB,maxRGB);
+    pixels.setPixelColor(i, randNumber1, randNumber2, randNumber3); 
+    
     pixels.show();
     delay(delayval);
     
@@ -46,7 +65,7 @@ void loop() {
     pixels.show(); // This sends the updated pixel color to the hardware.\
     delay(delayval); // Delay for a period of time (in milliseconds).
 
-    Serial.println(i);
+    //Serial.println(i);
 
   }
 }
